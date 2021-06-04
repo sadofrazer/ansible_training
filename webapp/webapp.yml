@@ -1,0 +1,15 @@
+---
+- name: "Installation prérequis docker python"
+  hosts: Prod
+  pre_tasks:
+    - name: "Install Docker module for python"
+      pip:
+        name: Docker-py
+        executable: pip3
+  tasks:
+    - name: Deploying apache container
+      docker_container: 
+         name: webapp
+         image: httpd
+         ports:
+           - "80:80"
