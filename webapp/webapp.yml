@@ -23,7 +23,7 @@
       pip:
         name: Docker-py
 # liste des taches principales
-  tasks: 
+  tasks:
     - name: install apache container
       docker_container: name=webapp image=httpd ports="80:80"
 
