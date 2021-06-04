@@ -1,20 +1,9 @@
 ---
-#On débute un fichier yaml par les 3 tirets
-#étant donné que c'est un playbook, on débute le nom du 1er book en mettant un tiret (liste contenant des ensembles) 
 - name: "Installation prérequis docker python"
-#On spécifie les hotes sur lesquels cette tache devrait s'appliquer, ici il s'agit du groupe Prod défini ds le fichier inventaire
   hosts: Prod
-  # become true, permet d'élever l'utilisateur et lui donner les droits sudo étant placé ici toutes les taches du book seront faites en sudo
   become: true
-  # on spécifie les variabes liées au book défini ci-dessus
-  vars:
-  # cette variable concerne en effet le mot de passe à fournir lors de l'élévation en sudo
-    ansible_sudo_pass: admin
-  # pretasks permet de lister les taches à exécuter avant les taches principale
   pre_tasks:
-  #Nom de la tache
     - name: "Install Epel Release"
-    #module à utiliser et dans le module on défini le nom et les arguments du module
       package: name=epel-release state=present
     - name: "Install pip"
       yum: name=python-pip state=present update_cache=yes
@@ -22,9 +11,6 @@
     - name: "Install Docker module for python"
       pip:
         name: Docker-py
-# liste des taches principales
   tasks:
     - name: install apache container
       docker_container: name=webapp image=httpd ports="80:80"
-
-
