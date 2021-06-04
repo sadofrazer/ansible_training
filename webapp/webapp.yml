@@ -1,15 +1,20 @@
 ---
 - name: "Installation prérequis docker python"
   hosts: Prod
+  become: true
+  vars:
+    ansible_sudo_pass: admin
   pre_tasks:
+    - name: "Install Epel Release"
+      package: name=epel-release state=present
+
+    - name: "Install pip"
+      yum: name=python-pip state=present update_cache=yes
+
     - name: "Install Docker module for python"
       pip:
         name: Docker-py
-        executable: pip3
+
   tasks:
-    - name: Deploying apache container
-      docker_container: 
-         name: webapp
-         image: httpd
-         ports:
-           - "80:80"
+    - name: install apache container
+      docker_container: name=webapp image=httpd ports="80:80"
