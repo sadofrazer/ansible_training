@@ -32,7 +32,7 @@
       copy:
         src: "/home/{{ ansible_user }}/ansible_training/TP-6/webapp-v2/website_files/"
         dest: "/home/{{ ansible_user }}/website_files"
-       
+
     - name: generate index.html file
       template:
         src: "/home/{{ ansible_user }}/ansible_training/TP-6/webapp-v2/website_files/index.html.j2"
