@@ -5,7 +5,7 @@
   vars:
   pre_tasks:
     - name: Install EPEL repo
-      package: name=epel-release state=present
+      package: name={{ item }} state=present
       when: ansible_distribution == "CentOS"
       loop:
         - epel-release
@@ -14,8 +14,8 @@
 
     - name: download pip script
       get_url:
-        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py 
-        dest: /tmp/get-pip.py 
+        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+        dest: /tmp/get-pip.py
 
     - name: install python-pip
       command: python2.7 /tmp/get-pip.py
@@ -26,7 +26,7 @@
     - name: generate index.html file
       template:
         src: "index.html.j2"
-        dest: "{{playbook_dir}}/website_files/index.html"
+        dest: "{{ playbook_dir }}/website_files/index.html"
 
   tasks:
     - name: Create Apache container
@@ -36,4 +36,4 @@
         ports:
           - "80:80"
         volumes:
-          - "{{playbook_dir}}/website_files:/usr/local/apache2/htdocs/"
+          - "{{ playbook_dir }}/website_files:/usr/local/apache2/htdocs/"
