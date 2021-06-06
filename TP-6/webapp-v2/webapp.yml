@@ -46,4 +46,4 @@
         ports:
           - "80:80"
         volumes:
-          - "/home/{{ ansible_user }}/website_files/:/usr/local/apache2/htdocs/"
+          - "/home/{{ ansible_user }}/website_files/:/usr/local/apache2/htdocs/:z"
