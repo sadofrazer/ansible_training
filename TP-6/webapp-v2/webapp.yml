@@ -7,6 +7,10 @@
     - name: Install EPEL repo
       package: name=epel-release state=present
       when: ansible_distribution == "CentOS"
+      loop:
+        - epel-release
+        - wget
+        - git
 
     - name: download pip script
       get_url:
@@ -19,6 +23,11 @@
     - name: Install docker python
       pip: name=docker-py
 
+    - name: generate index.html file
+      template:
+        src: "index.html.j2"
+        dest: "{{playbook_dir}}/website_files/index.html"
+
   tasks:
     - name: Create Apache container
       docker_container:
@@ -26,3 +35,5 @@
         image: httpd
         ports:
           - "80:80"
+        volumes:
+          - "{{playbook_dir}}/website_files:/usr/local/apache2/htdocs/"
