@@ -26,7 +26,7 @@
     - name: generate index.html file
       template:
         src: "index.html.j2"
-        dest: "{{ playbook_dir }}/website_files/index.html"
+        dest: "/home/{{ ansible_user }}/ansible_training/TP-6/webapp-v2/website_files/index.html"
 
   tasks:
     - name: Create Apache container
@@ -36,4 +36,4 @@
         ports:
           - "80:80"
         volumes:
-          - "{{ playbook_dir }}/website_files:/usr/local/apache2/htdocs/"
+          - "/home/{{ ansible_user }}/ansible_training/TP-6/webapp-v2/website_files/:/usr/local/apache2/htdocs/"
