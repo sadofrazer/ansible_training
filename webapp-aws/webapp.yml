@@ -24,16 +24,17 @@
     - service: name=docker state=restarted
 #Fin installation Docker et demarrage
 
-    - name: download pip script
-      get_url:
-        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
-        dest: /tmp/get-pip.py
+#    - name: download pip script
+#      get_url:
+#        url: https://bootstrap.pypa.io/pip/2.7/get-pip.py
+#        dest: /tmp/get-pip.py
 
     - name: install python-pip
-      command: python2.7 /tmp/get-pip.py
+     # command: python2.7 /tmp/get-pip.py
+      package: name=python3-pip state=present 
 
     - name: Install docker python
-      pip: name=docker-py
+      pip: name=docker-py executable=pip3
 
     - name: create websites_files
       file:
