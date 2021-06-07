@@ -7,9 +7,22 @@
       package: name={{ item }} state=present update_cache=yes
       #when: ansible_distribution == "CentOS"
       loop:
-        - epel-release
         - wget
         - git
+#Installation de docker
+    - name: ensure repository key is installed
+      apt_key:
+        url: https://download.docker.com/linux/ubuntu/gpg
+        state: present
+
+    - name: ensure docker registry is available
+      apt_repository: repo='deb https://download.docker.com/linux/ubuntu bionic stable' state=present
+
+    - name: ensure docker and dependencies are installed
+      apt: name=docker-ce update_cache=yes
+
+    - service: name=docker state=restarted
+#Fin installation Docker et demarrage
 
     - name: download pip script
       get_url:
@@ -29,12 +42,12 @@
 
     - name: copy websites_files
       copy:
-        src: "/home/{{ ansible_user }}/ansible_training/website_files/"
+        src: "/home/admin/ansible_training/website_files/"
         dest: "/home/{{ ansible_user }}/website_files"
 
     - name: generate index.html file
       template:
-        src: "/home/{{ ansible_user }}/ansible_training/index.html.j2"
+        src: "/home/admin/ansible_training/index.html.j2"
         dest: "/home/{{ ansible_user }}/website_files/index.html"
 
   tasks:
