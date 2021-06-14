@@ -1,6 +1,5 @@
 ---
-become: true
-vars_files:
-  - roles/webapp/files/secrets/credentials.yml
-roles:
-  - webapp
+- hosts: client
+  become: true
+  roles:
+    - webapp
