@@ -25,7 +25,7 @@
 
 - name: copy websites_files
   copy:
-    src: "/home/{{ ansible_user }}/ansible_training/website_files/"
+    src: "/home/{{ my_ansible_user }}/ansible_training/website_files/"
     dest: "/home/{{ ansible_user }}/website_files"
 
 - name: generate index.html file

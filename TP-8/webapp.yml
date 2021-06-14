@@ -2,6 +2,6 @@
 - hosts: client
   become: true
   vars_files:
-    - roles/webapp/files/secrets/credentials.yml
+    - files/secrets/credentials.yml
   roles:
     - webapp
